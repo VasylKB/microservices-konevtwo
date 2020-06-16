@@ -5,7 +5,6 @@
 var express = require("express");
 var app = express();
 
-
 /** Install & Set up mongoose */
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI, {
@@ -55,17 +54,29 @@ app.get("/api/whoami", function(req, res) {
   res.json({ ipaddress: ipaddress, language: language, software: software });
 });
 
-//  API endpoint for the third challenge.
-app.get("/api/whoami", function(req, res) {
+// MongoDB variables for the third challenge
+var urlSchema = new mongoose.Schema({
+  original_url: String,
+  short_url: String
+});
+
+var URL = mongoose.model("URL", urlSchema);
+
+//  API endpoints for the third challenge.
+app.post("/api/shorturl/new/:url", function(req, res) {
+  console.log(req.params.url);
+  // var SaveURL = function(done) {
+  // janeFonda.save(function(err, data) {
+  //   if (err) return console.error(err);
+  //   done(null, data);
+  // });
+  //};
 });
 
 //  API endpoints for the forth challenge.
-app.post("/api/exercise/new-user", function(req, res) {
-});
-app.post("/api/exercise/add", function(req, res) {
-});
-app.get("/api/exercise/log/:userId/:from/:to/:limit", function(req, res) {
-});
+app.post("/api/exercise/new-user", function(req, res) {});
+app.post("/api/exercise/add", function(req, res) {});
+app.get("/api/exercise/log/:userId/:from/:to/:limit", function(req, res) {});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function() {
