@@ -18,19 +18,18 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+//  API endpoints for the first challenge.
 app.get("/api/timestamp/", (req, res) => {
   res.json({ unix: Date.now(), utc: Date() });
 });
 
-// your first API endpoint...
 app.get("/api/timestamp/:date_string", function(req, res) {
   let input = req.params.date_string;
-  let date =
-     input === "" ? new Date() : new Date(input);
+  let date = input === "" ? new Date() : new Date(input);
 
   if (date.toUTCString() === "Invalid Date") {
     date = Number(input);
-    if (new Date(date).toUTCString()=== "Invalid Date") {
+    if (new Date(date).toUTCString() === "Invalid Date") {
       res.json({ error: "Invalid Date" });
     } else {
       res.json({ unix: date, utc: new Date(date).toUTCString() });
@@ -38,6 +37,22 @@ app.get("/api/timestamp/:date_string", function(req, res) {
   } else {
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   }
+});
+
+//  API endpoint for the second challenge.
+app.get("/api/whoami", function(req, res) {
+  let language = req.headers["accept-language"];
+  let ipaddress = req.headers["x-forwarded-for"].split(",")[0];
+  let software = req.headers["user-agent"];
+  res.json({ ipaddress: ipaddress, language: language, software: software });
+});
+
+//  API endpoint for the third challenge.
+app.get("/api/whoami", function(req, res) {
+});
+
+//  API endpoints for the forth challenge.
+app.get("/api/whoami", function(req, res) {
 });
 
 // listen for requests :)
