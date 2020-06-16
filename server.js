@@ -5,6 +5,14 @@
 var express = require("express");
 var app = express();
 
+
+/** Install & Set up mongoose */
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC
 var cors = require("cors");
@@ -52,7 +60,11 @@ app.get("/api/whoami", function(req, res) {
 });
 
 //  API endpoints for the forth challenge.
-app.get("/api/whoami", function(req, res) {
+app.post("/api/exercise/new-user", function(req, res) {
+});
+app.post("/api/exercise/add", function(req, res) {
+});
+app.get("/api/exercise/log/:userId/:from/:to/:limit", function(req, res) {
 });
 
 // listen for requests :)
