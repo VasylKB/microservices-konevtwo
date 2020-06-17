@@ -86,6 +86,7 @@ app.post("/api/shorturl/new", function(req, res) {
         Shorter.find({ original_url: originalUrl }, function(err, [doc]) {
           if (err) return console.log(err);
           if (doc === undefined) {
+            //creating an index
             Shorter.find().exec((err, doc) => {
               let toBeShortened = new Shorter({
                 original_url: originalUrl,
@@ -118,9 +119,60 @@ app.get("/api/shorturl/:short_url", function(req, res) {
   });
 });
 
+//Mongo db variables of the forth challenge
+// Create a 'User' Model
+let userSchema = new mongoose.Schema({
+  username: String,
+  exercises: []
+});
+
+// Create a User
+let User = mongoose.model("User", userSchema);
+
 //  API endpoints for the forth challenge.
-app.post("/api/exercise/new-user", function(req, res) {});
-app.post("/api/exercise/add", function(req, res) {});
+app.post("/api/exercise/new-user", function(req, res) {
+  let userName = req.body.name;
+  User.find({ username: userName }, function(err, [doc]) {
+    if (err) return console.log(err);
+
+    if (doc === undefined) {
+      let newUser = new User({
+        username: userName,
+        exercises: []
+      });
+      newUser.save(function(err, data) {
+        if (err) return console.error(err);
+        res.json({ username: data.username, _id: data.id });
+      });
+    } else {
+      res.json({ respose: "Username already taken" });
+    }
+  });
+});
+
+app.post("/api/exercise/add", function(req, res) {
+  let { id, description, duration, date } = req.body;
+
+  let newExercises = {
+    description: description,
+    duration: duration,
+    date: date
+  };
+  let isId = mongoose.Types.ObjectId.isValid(id);
+  if (isId) {
+    User.findById(id, function(err, doc) {
+      if (err) return console.log(err);
+      doc.exercises.push(newExercises);
+      doc.save(function(err, data) {
+        if (err) return console.error(err);
+        res.json({ respose: "Well done!" });
+      });
+    });
+  } else {
+    res.json({ respose: "Your userid is not a valid id" });
+  }
+});
+
 app.get("/api/exercise/log/:userId/:from/:to/:limit", function(req, res) {});
 
 // listen for requests :)
