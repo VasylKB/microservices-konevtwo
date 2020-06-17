@@ -34,12 +34,12 @@
     </div>
     <form action="/api/exercise/new-user" method="post">
       <label for="newuser">Create a New User</label><br />
-      <input type="text" id="newuser" name="name" value="newuser" /><br />
+      <input type="text" id="newuser" name="username" value="newuser" /><br />
       <input type="submit" value="Submit" />
     </form>
     <form action="/api/exercise/add" method="post">
       <label>Add exercises</label><br />
-      <input type="text" id="userid" name="id" value="userid" /><br />
+      <input type="text" id="userid" name="userId" value="userid" /><br />
       <input type="text" id="description" name="description" value="description" /><br />
       <input type="text" id="duration" name="duration" value="duration(mins)" /><br />
       <input type="text" id="date" name="date" value="date(yyyy-mm-dd)" /><br />
@@ -47,10 +47,18 @@
     </form>
     <form action="/api/exercise/log" method="get"> 
       <label>Get list of exercises</label><br />
-      <input type="text" id="getid" name="id" value="userid" /><br />
+      <input type="text" id="getid" name="userId" value="userid" /><br />
       <input type="text" id="datefrom" name="from" value="from begging" /><br />
       <input type="text" id="dateto" name="to" value="to now" /><br />
       <input type="text" id="limit" name="limit" value="limit" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+    <div >
+      <h4>Project 5</h4>
+    </div>
+    <form action="/api/exercise/new-user" method="post">
+      <label for="newuser">Create a New User</label><br />
+      <input type="file" id="file" name="username" value="newuser" /><br />
       <input type="submit" value="Submit" />
     </form>
     <p>
