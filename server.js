@@ -4,6 +4,8 @@ let mongo = require("mongodb");
 let mongoose = require("mongoose");
 let bodyParser = require("body-parser");
 let dns = require("dns");
+let fs = require('fs');
+var formidable = require('formidable');
 
 let app = express();
 
@@ -256,6 +258,22 @@ app.get("/api/exercise/log", function(req, res) {
       res.json({ respose: "Your userid is not a valid id" });
     }
   }
+});
+
+//  API endpoint for the last challenge.
+//the approach learned here https://stackoverflow.com/questions/23691194/node-express-file-upload
+app.post("/file", (req, res) => {
+  var form = new formidable.IncomingForm();
+    form.uploadDir = "./public";//set upload directory
+    form.keepExtensions = true;//keep file extension
+    form.parse(req, function(err, fields, files) {
+        fs.rename(files.upfile.path, './public/'+files.upfile.name, function(err) {
+        if (err)
+            throw err;
+          console.log('renamed complete');  
+        });
+    res.json({"name": files.upfile.name,"size":files.upfile.size});
+    });
 });
 
 // listen for requests :)

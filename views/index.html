@@ -56,9 +56,8 @@
     <div >
       <h4>Project 5</h4>
     </div>
-    <form action="/api/exercise/new-user" method="post">
-      <label for="newuser">Create a New User</label><br />
-      <input type="file" id="file" name="username" value="newuser" /><br />
+    <form method="post" action="file" enctype="multipart/form-data">
+      <input type="file" id="file" name="upfile" value="newuser" /><br />
       <input type="submit" value="Submit" />
     </form>
     <p>

@@ -1,30 +1,31 @@
 {
-	"name": "fcc-api-projects-boilerplate",
-	"version": "0.0.1",
-	"description": "An FCC Backend Challenge",
-	"main": "server.js",
-	"scripts": {
-		"start": "node server.js"
-	},
-	"dependencies": {
-		"express": "^5.0.0-alpha.2",
+  "name": "fcc-api-projects-boilerplate",
+  "version": "0.0.1",
+  "description": "An FCC Backend Challenge",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.0.0-alpha.2",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.5",
     "cors": "^2.8.4",
-    "body-parser": "^1.18.3"
-	},
-	"engines": {
-		"node": "4.4.5"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://githost.com/camper/repo.git"
-	},
-	"keywords": [
-		"node",
-		"hyperdev",
-		"express",
-		"freecodecamp"
-	],
-	"license": "MIT"
+    "body-parser": "^1.18.3",
+    "formidable": "^1.2.2"
+  },
+  "engines": {
+    "node": "4.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://githost.com/camper/repo.git"
+  },
+  "keywords": [
+    "node",
+    "hyperdev",
+    "express",
+    "freecodecamp"
+  ],
+  "license": "MIT"
 }
