@@ -152,28 +152,80 @@ app.post("/api/exercise/new-user", function(req, res) {
 
 app.post("/api/exercise/add", function(req, res) {
   let { id, description, duration, date } = req.body;
-
-  let newExercises = {
-    description: description,
-    duration: duration,
-    date: date
-  };
-  let isId = mongoose.Types.ObjectId.isValid(id);
-  if (isId) {
-    User.findById(id, function(err, doc) {
-      if (err) return console.log(err);
-      doc.exercises.push(newExercises);
-      doc.save(function(err, data) {
-        if (err) return console.error(err);
-        res.json({ respose: "Well done!" });
-      });
-    });
+  //checking if the date is of the right format
+  if (new Date(date).toString() === "Invalid Date") {
+    res.json({ respose: "Please check you time format" });
   } else {
-    res.json({ respose: "Your userid is not a valid id" });
+    date = new Date(date).toString();
+    let newExercises = {
+      description: description,
+      duration: duration,
+      date: date
+    };
+    //cheking if the id is valid
+    let isId = mongoose.Types.ObjectId.isValid(id);
+    if (isId) {
+      //trying to find the id
+      User.findById(id, function(err, doc) {
+        if (doc != undefined) {
+          if (err) return console.log(err);
+          //updating and saving the document
+          doc.exercises.push(newExercises);
+          doc.save(function(err, data) {
+            if (err) return console.error(err);
+            res.json({ respose: "Well done!" });
+          });
+        } else {
+          res.json({ respose: "Your userid is not a valid id" });
+        }
+      });
+    } else {
+      res.json({ respose: "Your userid is not a valid id" });
+    }
   }
 });
 
-app.get("/api/exercise/log/:userId/:from/:to/:limit", function(req, res) {});
+app.get("/api/exercise/log", function(req, res) {
+  let { id, from, to, limit } = req.query;
+  from = from === "from begging" ? "1900-01-01" : from;
+  to = to === "to now" ? new Date() : to;
+  limit = limit === "limit" ? 1000 : Number(limit);
+  //checking if the date is of the right format
+  console.log(id, from, to, limit);
+  if (
+    new Date(from).toString() === "Invalid Date" ||
+    new Date(to).toString() === "Invalid Date"
+  ) {
+    res.json({ respose: "Please check you time format" });
+  } else {
+    from = Date.parse(from);
+    to = Date.parse(to);
+    //cheking if the id is valid
+    let isId = mongoose.Types.ObjectId.isValid(id);
+    if (isId) {
+      //trying to find the id
+      User.findById(id, function(err, doc) {
+        if (doc != undefined) {
+          if (err) return console.log(err);
+          //updating and saving the document
+          let exercises = doc.exercises.filter(exercise => {
+            var date = Date.parse(exercise.date);
+            return date >= from && date <= to;
+          });
+          res.json({
+            username: doc.username,
+            id: doc.id,
+            exercises: [...exercises.slice(0, limit)]
+          });
+        } else {
+          res.json({ respose: "Your userid is not a valid id" });
+        }
+      });
+    } else {
+      res.json({ respose: "Your userid is not a valid id" });
+    }
+  }
+});
 
 // listen for requests :)
 let listener = app.listen(process.env.PORT, function() {

@@ -45,13 +45,13 @@
       <input type="text" id="date" name="date" value="date(yyyy-mm-dd)" /><br />
       <input type="submit" value="Submit" />
     </form>
-    <form action="/action_page.php">
+    <form action="/api/exercise/log" method="get"> 
       <label>Get list of exercises</label><br />
-      <input type="text" id="getid" name="userid" value="userid" /><br />
-      <input type="text" id="datefrom" name="datefrom" value="from date" /><br />
-      <input type="text" id="dateto" name="dateto" value="to date" /><br />
+      <input type="text" id="getid" name="id" value="userid" /><br />
+      <input type="text" id="datefrom" name="from" value="from begging" /><br />
+      <input type="text" id="dateto" name="to" value="to now" /><br />
       <input type="text" id="limit" name="limit" value="limit" /><br />
-      <input type="submit" value="Get" />
+      <input type="submit" value="Submit" />
     </form>
     <p>
       The idea of creating one backend for all project I have learned here :
