@@ -32,17 +32,17 @@
     <div >
       <h4>Project 4</h4>
     </div>
-    <form action="/action_page.php">
+    <form action="/api/exercise/new-user" method="post">
       <label for="newuser">Create a New User</label><br />
-      <input type="text" id="newuser" name="newuser" value="newuser" /><br />
+      <input type="text" id="newuser" name="name" value="newuser" /><br />
       <input type="submit" value="Submit" />
     </form>
-    <form action="/action_page.php">
+    <form action="/api/exercise/add" method="post">
       <label>Add exercises</label><br />
-      <input type="text" id="userid" name="userid" value="userid" /><br />
+      <input type="text" id="userid" name="id" value="userid" /><br />
       <input type="text" id="description" name="description" value="description" /><br />
-      <input type="text" id="duration" name="duration" value="duration" /><br />
-      <input type="text" id="date" name="date" value="date" /><br />
+      <input type="text" id="duration" name="duration" value="duration(mins)" /><br />
+      <input type="text" id="date" name="date" value="date(yyyy-mm-dd)" /><br />
       <input type="submit" value="Submit" />
     </form>
     <form action="/action_page.php">
