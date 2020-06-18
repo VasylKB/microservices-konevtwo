@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^5.0.0-alpha.2",
+    "express": "^4.16.4",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.5",
     "cors": "^2.8.4",
@@ -15,7 +15,7 @@
     "formidable": "^1.2.2"
   },
   "engines": {
-    "node": "4.4.5"
+    "node": "^4.4.5"
   },
   "repository": {
     "type": "git",
